@@ -54,7 +54,7 @@ CREATE TABLE public.galaxy (
     discovery_year integer NOT NULL,
     radius_in_light_years numeric(18,5),
     description text,
-    galaxy_type_id integer
+    galaxy_types_id integer
 );
 
 
@@ -87,7 +87,7 @@ ALTER SEQUENCE public.galaxy_galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 --
 
 CREATE TABLE public.galaxy_types (
-    galaxy_type_id integer NOT NULL,
+    galaxy_types_id integer NOT NULL,
     name character varying(40) NOT NULL,
     description text
 );
@@ -114,7 +114,7 @@ ALTER TABLE public.galaxy_types_galaxy_type_id_seq OWNER TO freecodecamp;
 -- Name: galaxy_types_galaxy_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
 --
 
-ALTER SEQUENCE public.galaxy_types_galaxy_type_id_seq OWNED BY public.galaxy_types.galaxy_type_id;
+ALTER SEQUENCE public.galaxy_types_galaxy_type_id_seq OWNED BY public.galaxy_types.galaxy_types_id;
 
 
 --
@@ -244,10 +244,10 @@ ALTER TABLE ONLY public.galaxy ALTER COLUMN galaxy_id SET DEFAULT nextval('publi
 
 
 --
--- Name: galaxy_types galaxy_type_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+-- Name: galaxy_types galaxy_types_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
-ALTER TABLE ONLY public.galaxy_types ALTER COLUMN galaxy_type_id SET DEFAULT nextval('public.galaxy_types_galaxy_type_id_seq'::regclass);
+ALTER TABLE ONLY public.galaxy_types ALTER COLUMN galaxy_types_id SET DEFAULT nextval('public.galaxy_types_galaxy_type_id_seq'::regclass);
 
 
 --
@@ -416,7 +416,7 @@ ALTER TABLE ONLY public.galaxy_types
 --
 
 ALTER TABLE ONLY public.galaxy_types
-    ADD CONSTRAINT galaxy_types_pkey PRIMARY KEY (galaxy_type_id);
+    ADD CONSTRAINT galaxy_types_pkey PRIMARY KEY (galaxy_types_id);
 
 
 --
@@ -472,7 +472,7 @@ ALTER TABLE ONLY public.star
 --
 
 ALTER TABLE ONLY public.galaxy
-    ADD CONSTRAINT galaxy_galaxy_type_id_fkey FOREIGN KEY (galaxy_type_id) REFERENCES public.galaxy_types(galaxy_type_id);
+    ADD CONSTRAINT galaxy_galaxy_type_id_fkey FOREIGN KEY (galaxy_types_id) REFERENCES public.galaxy_types(galaxy_types_id);
 
 
 --
